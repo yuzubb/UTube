@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="watch-page-container">
+    <div class="main-video-area">
+        
+        <div class="video-player-container">
+            {% if video_stream_url %}
+            <video controls class="html5-video-player" poster="{{ video.videoThumbnails[0].url }}">
+                <source src="{{ video_stream_url }}" type="video/mp4">
+                お使いのブラウザは動画の再生に対応していません。
+            </video>
+            {% else %}
+            <div class="video-error-message">
+                えらー
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="video-details-section">
+            <h1 class="video-title-watch">{{ video.title }}</h1>
+            
+            <div class="stats-bar">
+                <span class="view-count">{{ video.viewCount | format_views }}</span>
+                <span class="published-date">・{{ video.publishedText }}</span>
+            </div>
+            
+            <hr class="separator">
+            
+            <div class="channel-and-description">
+                <div class="channel-info">
+                    <a href="/channel/{{ video.authorId }}">
+                        <img src="{{ video.authorThumbnails[0].url }}" alt="Channel Icon" class="channel-icon-watch">
+                    </a>
+                    <div class="author-details">
+                        <p class="author-name">{{ video.author }}</p>
+                        {% if video.subCount %}
+                        <p class="subscriber-count">{{ video.subCount | format_views }}人</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <pre class="video-description">{{ video.description }}</pre>
+            </div>
+
+            <div class="comments-section">
+                <h2 class="comment-count-header">{{ video.commentCount | format_views }} 件のコメント</h2>
+                
+                {% for comment in video.comments %}
+                <div class="comment-card">
+                    <img src="{{ comment.authorThumbnails[0].url }}" alt="Commenter Icon" class="comment-author-icon">
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">{{ comment.author }}</span>
+                            <span class="comment-time">{{ comment.publishedText }}</span>
+                        </div>
+                        <p class="comment-body">{{ comment.content }}</p>
+                        <div class="comment-actions">
+                            <span class="comment-likes">👍 {{ comment.likeCount }}</span>
+                            <span class="comment-reply">返信</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="related-videos-sidebar">
+        <h3 class="related-videos-title">関連動画</h3>
+        {% for related in related_videos %}
+        <a href="/watch/{{ related.videoId }}" class="related-video-card">
+            <div class="related-thumbnail-container">
+                <img src="{{ related.videoThumbnails[0].url }}" alt="{{ related.title }}" class="related-thumbnail">
+                <span class="related-video-duration">{{ related.lengthSeconds | format_duration }}</span>
+            </div>
+            <div class="related-video-info">
+                <h3 class="related-video-title">{{ related.title }}</h3>
+                <p class="related-channel-name">{{ related.author }}</p>
+                <p class="related-metadata">{{ related.viewCount | format_views }} • {{ related.publishedText }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
