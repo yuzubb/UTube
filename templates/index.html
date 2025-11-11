@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section class="video-grid">
+        {% for video in videos %}
+        <a href="/watch/{{ video.videoId }}" class="video-card">
+            <div class="thumbnail-container">
+                <img src="{{ video.videoThumbnails[0].url }}" alt="{{ video.title }}" class="thumbnail">
+                <span class="video-duration">{{ video.lengthSeconds | format_duration }}</span> 
+            </div>
+            
+            <div class="video-info">
+                <a href="/channel/{{ video.authorId }}" class="channel-icon-link">
+                    <img src="{{ video.authorThumbnails[0].url }}" alt="Channel Icon" class="channel-icon">
+                </a>
+                <div class="details">
+                    <h3 class="video-title">{{ video.title }}</h3>
+                    <p class="channel-name">{{ video.author }}</p>
+                    <p class="metadata">{{ video.viewCount | format_views }} • {{ video.publishedText }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </section>
+{% endblock %}
