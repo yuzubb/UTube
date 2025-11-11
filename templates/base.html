@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="youtube-header">
+        <div class="header-left">
+            <span class="menu-icon">☰</span> 
+            <a href="/" class="youtube-logo-link">
+                <span class="youtube-logo">YouTube</span>
+            </a>
+        </div>
+
+        <div class="header-center">
+            <form action="/search" method="GET" class="search-form">
+                <input type="text" name="q" placeholder="検索" class="search-input">
+                <button type="submit" class="search-button">🔍</button>
+            </form>
+        </div>
+
+        <div class="header-right">
+            <span class="user-icon">👤</span> 
+        </div>
+    </header>
+    
+    <aside class="youtube-sidebar">
+        <nav>
+            <a href="/" class="sidebar-item active">ホーム</a>
+            <a href="#" class="sidebar-item">音楽</a>
+            <a href="#" class="sidebar-item">トレンド</a>
+        </nav>
+    </aside>
+
+    <main class="content-area">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
