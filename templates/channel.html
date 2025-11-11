@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="channel-page-container">
+        
+        <div class="channel-banner-container">
+            {% if channel.bannerUrl %}
+            <img src="{{ channel.bannerUrl }}" alt="{{ channel.author }} のバナー" class="channel-banner">
+            {% endif %}
+        </div>
+        
+        <div class="channel-header-info">
+            <img src="{{ channel.authorThumbnails[0].url }}" alt="{{ channel.author }} のアイコン" class="channel-profile-icon">
+            <div class="channel-details">
+                <h1 class="channel-author-name">{{ channel.author }}</h1>
+                <p class="channel-handle-and-subscribers">
+                    {{ channel.author }}
+                    ・
+                    {% if channel.subCount %}
+                    {{ channel.subCount | format_views }}人
+                    {% endif %}
+                </p>
+                <p class="channel-description-short">{{ channel.description }}</p>
+            </div>
+        </div>
+        
+        <hr class="channel-separator">
+        
+        <div class="channel-tabs">
+            <button class="channel-tab active">動画</button>
+        </div>
+        
+        <section class="channel-video-grid video-grid">
+            {% for video in videos %}
+            <a href="/watch/{{ video.videoId }}" class="video-card">
+                <div class="thumbnail-container">
+                    <img src="{{ video.videoThumbnails[0].url }}" alt="{{ video.title }}" class="thumbnail">
+                    <span class="video-duration">{{ video.lengthSeconds | format_duration }}</span> 
+                </div>
+                
+                <div class="video-info">
+                    <div class="details">
+                        <h3 class="video-title">{{ video.title }}</h3>
+                        <p class="channel-name">{{ video.author }}</p>
+                        <p class="metadata">{{ video.viewCount | format_views }} • {{ video.publishedText }}</p>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </section>
+
+    </div>
+{% endblock %}
