@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="search-results-header">検索結果： "{{ query }}"</h2>
+    
+    <div class="search-results-list">
+        {% for video in videos %}
+            <a href="/watch/{{ video.videoId }}" class="search-result-item">
+                <div class="result-thumbnail-container">
+                    <img src="{{ video.videoThumbnails[0].url }}" alt="{{ video.title }}" class="result-thumbnail">
+                    <span class="result-video-duration">{{ video.lengthSeconds | format_duration }}</span>
+                </div>
+                
+                <div class="result-info">
+                    <h3 class="result-title">{{ video.title }}</h3>
+                    <p class="result-metadata">
+                        <a href="/channel/{{ video.authorId }}" class="result-channel-name">{{ video.author }}</a>
+                        ・
+                        <span class="result-views">{{ video.viewCount | format_views }}</span>
+                        ・
+                        <span class="result-published">{{ video.publishedText }}</span>
+                    </p>
+                    <p class="result-description">{{ video.description }}</p>
+                </div>
+            </a>
+            {% else %}
+            <p class="no-results-message">"{ { query } }" に一致する動画は見つかりませんでした。</p>
+        {% endfor %}
+    </div>
+{% endblock %}
