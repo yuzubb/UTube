@@ -1,1 +1,12 @@
-
+[
+    "https://invidious.lunivers.trade/",
+    "https://yt.omada.cafe/",
+    "https://inv.perditum.com/",
+    "https://inv.perditum.com/",
+    "https://iv.melmac.space/", 
+    "https://invidious.nikkosphere.com/",
+    "https://iv.duti.dev/",
+    "https://youtube.alt.tyil.nl/",
+    "https://inv.antopie.org/",
+    "https://lekker.gay/"
+]
